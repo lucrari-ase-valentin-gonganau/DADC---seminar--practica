@@ -1,0 +1,8 @@
+./apps/react-app/node_modules
+./apps/react-app/.next
+./apps/node-api/node_modules
+./data
+./node_modules
+data
+.DS_Store
+./apps/.DS_Store

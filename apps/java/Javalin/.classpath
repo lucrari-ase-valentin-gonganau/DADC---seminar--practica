@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-webapp-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/kotlin-stdlib-jdk7-1.9.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/annotations-13.0.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/kotlin-stdlib-1.9.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/kotlin-stdlib-jdk8-1.9.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/websocket-core-server-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/websocket-servlet-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/websocket-core-common-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/websocket-jetty-common-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/websocket-jetty-api-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-xml-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-security-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-servlet-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/websocket-jetty-server-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-jakarta-servlet-api-5.0.2.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-io-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-util-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-http-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jetty-server-11.0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/javalin-6.7.0.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jakarta.jms-api-2.0.3.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/artemis-selector-2.37.0.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/artemis-commons-2.37.0.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/bcutil-jdk18on-1.78.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/bcpkix-jdk18on-1.78.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/bcprov-jdk18on-1.78.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/pem-keystore-2.4.0.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-resolver-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-common-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-codec-socks-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-codec-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-handler-proxy-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-handler-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-transport-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-buffer-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-codec-http-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-transport-classes-kqueue-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-transport-native-kqueue-4.1.112.Final-osx-x86_64.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-transport-classes-epoll-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-transport-native-unix-common-4.1.112.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/netty-transport-native-epoll-4.1.112.Final-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/jgroups-5.3.10.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/artemis-core-client-2.37.0.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/artemis-jms-client-2.37.0.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/slf4j-api-2.0.16.jar"/>
+	<classpathentry kind="lib" path="/Users/valentin/Documents/stuffs/master-ase/Dezvoltarea aplicaţiilor distribuite și Cloud/proiect/apps/java/Javalin/target/dependency/slf4j-simple-2.0.16.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

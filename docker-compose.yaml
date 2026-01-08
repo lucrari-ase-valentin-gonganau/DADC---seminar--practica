@@ -1,0 +1,176 @@
+services:
+  container1:
+    build:
+      context: .
+      dockerfile: Dockerfile.container1
+    container_name: container1
+    ports:
+      - 3000:3000 # web interface port
+      - "8081:8081" # javalin app port and websocket port
+      # - "161:161/udp" # SNMP port will be visible through network dad
+    networks:
+      - dad_network
+    restart: unless-stopped
+    environment:
+      BROKER_URL: tcp://container2:61616
+      BROKER_USER: admin
+      BROKER_PASSWORD: admin
+
+      # BASE_PATH_URL_WEBSOCKET: ws://container1:8081/websocket
+      # BASE_PATH_URL_NODE: http://container1:8081/api
+      # BASE_PATH_URL_JAVALIN: http://container1:8081
+
+      BASE_PATH_URL_SNMP: http://container6:8082
+
+    depends_on:
+      - container2
+  container2:
+    build:
+      context: .
+      dockerfile: Dockerfile.container2
+    container_name: container2
+    environment:
+      ARTEMIS_USER: admin
+      ARTEMIS_PASSWORD: admin
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+
+      # - "161:161/udp"
+    networks:
+      - dad_network
+    restart: unless-stopped
+
+  container3:
+    build:
+      context: .
+      dockerfile: Dockerfile.container3
+    container_name: container3
+    # ports:
+    # - "161:161/udp" # SNMP port will be visible through network dad
+    networks:
+      - dad_network
+    restart: unless-stopped
+    environment:
+      BROKER_URL: tcp://container2:61616
+      BROKER_USER: admin
+      BROKER_PASSWORD: admin
+      DB_URL: jdbc:mysql://mysql:3306/blobstore?useSSL=false&allowPublicKeyRetrieval=true
+      DB_USER: stud
+      DB_PASS: stud123
+
+      # URL_STATUS_IMAGE_PROCESSING: http://host.docker.internal
+      # for prod move to http://container1
+      URL_STATUS_IMAGE_PROCESSING: http://container1
+      PORT_STATUS_IMAGE_PROCESSING: 8081
+
+      RMI_SERVER_IP_ZOOM: "container4"
+      RMI_SERVER_PORT_ZOOM: "1099"
+
+      RMI_SERVER_IP_BLUR: "container5"
+      RMI_SERVER_PORT_BLUR: "1100"
+    depends_on:
+      - container2
+      - container4
+
+  container4:
+    build:
+      context: .
+      dockerfile: Dockerfile.container4
+    container_name: container4
+    # ports:
+    # - "161:161/udp" # SNMP port will be visible through network dad
+    networks:
+      - dad_network
+    restart: unless-stopped
+    environment:
+      BROKER_URL: tcp://container2:61616
+      BROKER_USER: admin
+      BROKER_PASSWORD: admin
+
+      # RMI_SERVER_PORT: "1099"
+    depends_on:
+      - container2
+
+  container5:
+    build:
+      context: .
+      dockerfile: Dockerfile.container5
+    container_name: container5
+    # ports:
+    # - "161:161/udp" # SNMP port will be visible through network dad
+    networks:
+      - dad_network
+    restart: unless-stopped
+    environment:
+      BROKER_URL: tcp://container2:61616
+      BROKER_USER: admin
+      BROKER_PASSWORD: admin
+
+      # RMI_SERVER_PORT: "1100"
+    depends_on:
+      - container2
+
+  # REST API in node.js w MongoDB with 2 REST API endpoints interfaces: 1 for DB access and 1 for Web Access
+  container6:
+    build:
+      context: .
+      dockerfile: Dockerfile.container6
+    container_name: container6
+    ports:
+      - "8082:8082"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://stud:stud123@mongo:27017/snmpdb?authSource=admin
+      - DB_HOST=mysql
+      - DB_USER=stud
+      - DB_PASSWORD=stud123
+      - DB_NAME=blobstore
+      - SNMP_TARGET_IP=container1,container2,container3,container4,container5
+      - SNMP_COMMUNITY=public
+      - SNMP_POLLING=true
+    depends_on:
+      - mongo
+      - mysql
+    networks:
+      - dad_network
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: stud
+      MONGO_INITDB_ROOT_PASSWORD: stud123
+      MONGO_INITDB_DATABASE: snmpdb
+    volumes:
+      - ./data/mongo:/data/db
+    networks:
+      - dad_network
+    restart: unless-stopped
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    command: --max_allowed_packet=2147483648
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: stud123
+      MYSQL_DATABASE: blobstore
+      MYSQL_USER: stud
+      MYSQL_PASSWORD: stud123
+    networks:
+      - dad_network
+    ports:
+      - "3306:3306"
+
+networks:
+  dad_network:
+# volumes:
+#   mongo_data:
+#   mysql_data:
+volumes:
+  artemis-data:

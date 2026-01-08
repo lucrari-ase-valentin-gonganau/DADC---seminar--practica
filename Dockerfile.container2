@@ -1,0 +1,28 @@
+# Container 2: ActiveMQ Artemis - JMS Broker
+FROM apache/activemq-artemis:latest-alpine
+
+# Environment variables for Artemis configuration
+ENV ARTEMIS_USER=admin
+ENV ARTEMIS_PASSWORD=admin
+ENV ANONYMOUS_LOGIN=false
+
+# Install and configure SNMP
+USER root
+RUN apk add --no-cache net-snmp && \
+    echo "agentAddress udp:161" > /etc/snmp/snmpd.conf && \
+    echo "rocommunity public default" >> /etc/snmp/snmpd.conf && \
+    echo "includeAllDisks 10%" >> /etc/snmp/snmpd.conf && \
+    echo "load 12 10 5" >> /etc/snmp/snmpd.conf
+
+# Create startup script
+RUN echo '#!/bin/sh' > /start.sh && \
+    echo 'snmpd -Lo -f &' >> /start.sh && \
+    echo 'exec /docker-run.sh run' >> /start.sh && \
+    chmod +x /start.sh
+
+# Expose Artemis ports
+# 61616: Core protocol (JMS)
+# 8161: Web console
+EXPOSE 61616 8161 161/udp
+
+ENTRYPOINT ["/start.sh"]

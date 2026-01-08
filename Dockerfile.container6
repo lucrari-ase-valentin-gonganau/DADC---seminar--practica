@@ -1,0 +1,20 @@
+# Folosește Node.js 24 cu suport nativ TypeScript
+FROM node:24-alpine
+
+# Setează directorul de lucru
+WORKDIR /usr/src/app
+
+# Copiază fișierele de configurare
+COPY ./apps/node-api/package*.json ./
+
+# Instalează dependențele
+RUN npm install --production
+
+# Copiază codul aplicației
+COPY ./apps/node-api .
+
+# Expune portul aplicației
+EXPOSE 8082
+
+# Comandă de rulare cu suport nativ TypeScript
+CMD ["node", "--experimental-strip-types", "index.ts"]

@@ -1,0 +1,33 @@
+FROM critoma/amd64_u24_noble_ism_security:latest
+
+ENV JAVA_HOME=/opt/software/java/jdks/jdk-25.0.1
+ENV TOMEE_HOME=/opt/software/apache-tomee-plume-10.0.0-M3
+ENV PATH="$JAVA_HOME/bin:$TOMEE_HOME/bin:$PATH"
+
+USER stud
+WORKDIR /home/stud/app
+
+# Copy ServerRMI2 application
+COPY --chown=stud:stud apps/java/EEServerRMI2/. .
+
+# Compile Java files
+RUN mkdir -p classes && \
+    /opt/software/java/jdks/jdk-25.0.1/bin/javac -d classes -cp "ejbModule:/opt/software/apache-tomee-plume-10.0.0-M3/lib/*" ejbModule/eu/proiect/*.java
+
+USER root
+RUN apt-get update && \
+    apt-get install -y snmpd && \
+    echo "agentAddress udp:161" > /etc/snmp/snmpd.conf && \
+    echo "rocommunity public default" >> /etc/snmp/snmpd.conf && \
+    echo "includeAllDisks 10%" >> /etc/snmp/snmpd.conf && \
+    echo "load 12 10 5" >> /etc/snmp/snmpd.conf
+
+# Create startup script
+RUN echo '#!/bin/bash\nservice snmpd start\nexport JAVA_HOME=/opt/software/java/jdks/jdk-25.0.1\nexport TOMEE_HOME=/opt/software/apache-tomee-plume-10.0.0-M3\nexport PATH=$JAVA_HOME/bin:$TOMEE_HOME/bin:$PATH\nsu stud -c "cd /home/stud/app && /opt/software/java/jdks/jdk-25.0.1/bin/java -cp classes:ejbModule:/opt/software/apache-tomee-plume-10.0.0-M3/lib/* eu.proiect.ServerRMIImage"' > /start.sh && \
+    chmod +x /start.sh
+
+# Expose RMI port and SNMP port
+EXPOSE 1100 161/udp
+
+# Start TomEE
+CMD ["/bin/bash", "-c", "/start.sh"]

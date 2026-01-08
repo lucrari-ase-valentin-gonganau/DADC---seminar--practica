@@ -1,0 +1,42 @@
+# Container 1: TomEE Plume - REST API Backend with JMS Publisher and WebSocket
+FROM critoma/amd64_u24_noble_ism_security:latest
+
+ENV JAVA_HOME=/opt/software/java/jdks/jdk-25.0.1
+ENV TOMEE_HOME=/opt/software/apache-tomee-plume-10.0.0-M3
+ENV NODE_HOME=/opt/software/nodejs/node-v22.21.0-linux-x64
+ENV PATH="$JAVA_HOME/bin:$TOMEE_HOME/bin:$NODE_HOME/bin:$PATH"
+
+USER stud
+WORKDIR /home/stud/app
+
+# Copy application source code
+COPY --chown=stud:stud apps/java/Javalin/. .
+
+RUN mkdir -p target/classes && \
+    javac -cp "target/dependency/*" -d target/classes src/main/java/eu/*.java
+
+# Copy and build React app
+COPY --chown=stud:stud apps/react-app /home/stud/react-app
+WORKDIR /home/stud/react-app
+RUN npm install && npm run build
+
+WORKDIR /home/stud/app
+
+USER root
+RUN apt-get update && \
+    apt-get install -y snmpd && \
+    echo "agentAddress udp:161" > /etc/snmp/snmpd.conf && \
+    echo "rocommunity public default" >> /etc/snmp/snmpd.conf && \
+    echo "includeAllDisks 10%" >> /etc/snmp/snmpd.conf && \
+    echo "load 12 10 5" >> /etc/snmp/snmpd.conf
+
+# Create startup script
+RUN echo '#!/bin/bash\nservice snmpd start\nsu stud -c "cd /home/stud/react-app && export NODE_HOME=/opt/software/nodejs/node-v22.21.0-linux-x64 && export PATH=\$NODE_HOME/bin:\$PATH && PORT=3000 npm start &"\nsu stud -c "cd /home/stud/app && export JAVA_HOME=/opt/software/java/jdks/jdk-25.0.1 && export PATH=\$JAVA_HOME/bin:\$PATH && java -cp target/classes:target/dependency/* eu.App"' > /start.sh && \
+    chmod +x /start.sh
+
+EXPOSE 8081 3000 161/udp
+
+
+
+# CMD ["scriptcontainer1.sh", "run"]
+CMD ["/bin/bash", "-c", "/start.sh"]
