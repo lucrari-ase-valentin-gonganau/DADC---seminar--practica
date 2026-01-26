@@ -35,7 +35,8 @@ services:
     ports:
       - "8161:8161"
       - "61616:61616"
-
+    volumes:
+      - artemis_data:/var/lib/artemis
       # - "161:161/udp"
     networks:
       - dad_network
@@ -145,7 +146,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: stud123
       MONGO_INITDB_DATABASE: snmpdb
     volumes:
-      - ./data/mongo:/data/db
+      - mongo_data:/data/db
     networks:
       - dad_network
     restart: unless-stopped
@@ -155,7 +156,7 @@ services:
     restart: unless-stopped
     command: --max_allowed_packet=2147483648
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: stud123
       MYSQL_DATABASE: blobstore
@@ -172,4 +173,6 @@ networks:
 #   mongo_data:
 #   mysql_data:
 volumes:
-  artemis-data:
+  artemis_data:
+  mongo_data:
+  mysql_data:
