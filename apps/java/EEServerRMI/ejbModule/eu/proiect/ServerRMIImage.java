@@ -27,5 +27,22 @@ public class ServerRMIImage {
 
 		}
 		
+		// remove after finished the development
+//		try {
+//		    
+//		    Registry registery = LocateRegistry.createRegistry(1100);
+//			
+//			
+//			ImageProcessor ip = new ImageProcessor();
+//			
+//			registery.rebind("ImageProcessorService", ip);
+//			
+//			System.out.println("SERVER RMI 2 - Zoom Image Started on port: "  + 1100);
+//			
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		
 	}
 }

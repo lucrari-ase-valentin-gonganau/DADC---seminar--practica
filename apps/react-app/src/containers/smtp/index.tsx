@@ -11,34 +11,40 @@ interface SNMPData {
   timestamp: string;
 }
 
+const path = process.env.BASE_PATH_URL_SNMP || "http://localhost:8082";
+
 const SMTP = () => {
   const [data, setData] = useState<SNMPData[]>([]);
   const [loading, setLoading] = useState(true);
   const [limit, setLimit] = useState(10);
   const [offset, setOffset] = useState(0);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const path = process.env.BASE_PATH_URL_SNMP || "http://localhost:8082";
+    fetchData(search);
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${path}/snmp`, {
-          params: { limit, offset },
-        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [limit, offset, search]);
 
-        setData(Array.isArray(response.data.data) ? response.data.data : []);
-      } catch (error) {
-        console.error("Error fetching SNMP data:", error);
-        setData([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async (searchTerm: string = "") => {
+    try {
+      const response = await axios.get(`${path}/snmp`, {
+        params: { limit, offset, search: searchTerm },
+      });
 
-    fetchData();
-    const interval = setInterval(fetchData, 10000);
-    return () => clearInterval(interval);
-  }, [limit, offset]);
+      setData(Array.isArray(response.data.data) ? response.data.data : []);
+    } catch (error) {
+      console.error("Error fetching SNMP data:", error);
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onSearch = () => {
+    setOffset(0);
+    fetchData(search);
+  };
 
   const handlePrevious = () => {
     setOffset((prev) => Math.max(0, prev - limit));
@@ -53,6 +59,28 @@ const SMTP = () => {
       <h2 className="mb-4">SNMP Data</h2>
 
       <div className="row mb-3">
+        <div className="col-md-4">
+          <label htmlFor="searchInput" className="form-label">
+            Search:
+          </label>
+          <div className="input-group">
+            <input
+              id="searchInput"
+              type="text"
+              className="form-control"
+              placeholder="Search by name, OID, or value..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={onSearch}
+            >
+              <i className="bi bi-search"></i> Search
+            </button>
+          </div>
+        </div>
         <div className="col-md-3">
           <label htmlFor="limitSelect" className="form-label">
             Items per page:
@@ -72,7 +100,7 @@ const SMTP = () => {
             <option value={50}>50</option>
           </select>
         </div>
-        <div className="col-md-9 d-flex align-items-end">
+        <div className="col-md-5 d-flex align-items-end">
           <button
             className="btn btn-primary me-2"
             onClick={handlePrevious}

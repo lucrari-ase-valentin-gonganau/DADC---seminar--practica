@@ -40,5 +40,6 @@ public class ImageProcessingResult implements Serializable {
     public String getErrorMessage() {
         return errorMessage;
     }
+
     
 }

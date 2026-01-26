@@ -21,32 +21,7 @@ public class db {
 		ps.execute();
 	}
 	
-	public static void addBluredImageInDatabase(long id, byte[] imageBlured) {
-		Connection conn;
-		
-		try {
-		conn = db.getConnection();
-		
-		String sql = "UPDATE images SET image_blured = ? WHERE id = ?";
-		
-		PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.NO_GENERATED_KEYS);
-		
-		ps.setBytes(1,  imageBlured);
-		ps.setLong(2, id);
-				
-		
-		ps.executeUpdate();
-		System.out.println("Added image blured in database");
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-	}
-	
+
 	public static long saveAsBlob(byte[] imageOriginal, byte[] imageZoomed, String typeImage)  {
 		Connection conn;
 		try {
@@ -69,8 +44,6 @@ public class db {
 		System.out.println("RowInserted in mysql");
 
 		
-		
-		
 		try (ResultSet rs = ps.getGeneratedKeys()) {
 			if (rs.next()) {
 				long insertId = rs.getLong(1);
@@ -81,8 +54,6 @@ public class db {
 				return insertId;
 			}
 		}
-		
-		
 		
 		
 		} catch (SQLException e) {
@@ -110,7 +81,6 @@ public class db {
 				id BIGINT AUTO_INCREMENT PRIMARY KEY,
 				image_original LONGBLOB,
 				image_zoomed LONGBLOB NOT NULL,
-				image_blured LONGBLOB,
 				type_image VARCHAR(10),
 				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 			);

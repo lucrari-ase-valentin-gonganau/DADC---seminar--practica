@@ -67,16 +67,15 @@ services:
       RMI_SERVER_IP_ZOOM: "container4"
       RMI_SERVER_PORT_ZOOM: "1099"
 
-      RMI_SERVER_IP_BLUR: "container5"
-      RMI_SERVER_PORT_BLUR: "1100"
+      RMI_SERVER_IP_ZOOM_2: "container5"
+      RMI_SERVER_PORT_ZOOM_2: "1100"
     depends_on:
       - container2
-      - container4
 
   container4:
     build:
       context: .
-      dockerfile: Dockerfile.container4
+      dockerfile: Dockerfile.container4_5
     container_name: container4
     # ports:
     # - "161:161/udp" # SNMP port will be visible through network dad
@@ -87,15 +86,15 @@ services:
       BROKER_URL: tcp://container2:61616
       BROKER_USER: admin
       BROKER_PASSWORD: admin
-
-      # RMI_SERVER_PORT: "1099"
+      # RMI_SERVER_PORT: "1099" # is configured default 1099 the port in code
     depends_on:
       - container2
+      - container3
 
   container5:
     build:
       context: .
-      dockerfile: Dockerfile.container5
+      dockerfile: Dockerfile.container4_5
     container_name: container5
     # ports:
     # - "161:161/udp" # SNMP port will be visible through network dad
@@ -106,10 +105,10 @@ services:
       BROKER_URL: tcp://container2:61616
       BROKER_USER: admin
       BROKER_PASSWORD: admin
-
-      # RMI_SERVER_PORT: "1100"
+      RMI_SERVER_PORT: "1100"
     depends_on:
       - container2
+      - container3
 
   # REST API in node.js w MongoDB with 2 REST API endpoints interfaces: 1 for DB access and 1 for Web Access
   container6:

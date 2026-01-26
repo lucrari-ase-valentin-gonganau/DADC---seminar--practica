@@ -1,18 +1,13 @@
-Semester Assignment
-Deadline - YYYY/MM/dd HH:mm: 2024/01/15 (Current Year/01/15 23:50 GMT+2)
-Problem description: "Create 6 Docker containers from Docker Image: https://hub.docker.com/r/critoma/linux-u20-dev-security-ism
-for zooming in/out a large BMP picture. Please draw the architecture in draw.io/diagrams.net/Visio/ or equivalent Tools and implement the following requirements.
+Cum functioneaza?
 
-The picture is received from the Front-end (Plain JS/CSS/HTML or Angular or Vue.js or REACT) into the 1st container Back-End via REST API (Javalin or Jakarta EE Servlet REST API) and then is published as binary message into a JMS Topic from the 2nd container which is a MoM JMS Broker. In the 3rd container a Jakarta EE EJB MDB is subscribed to the 2nd container JMS Topic and it is also Java RMI Client for 2 Java RMI Servers which are running in the 4th and 5th containers. When the BMP picture is ready, then it is stored in 6th container MySQL DB as BLOB - Binary Large Object. The 6th container has 2 DBs - one MongoDB for collecting SNMP values from all the nodes regarding OS name, CPU and RAM usage and a MySQL DB for storing modified pictures. All these are exposed through node.js JS Express REST Endpoints - one for SNMP values display and one for BMP picture rendering. When the zoomed BMP pic is inserted in the MySQL, then the 1st container via REST API/WebSocket is notifying the front-end with HTTP redirection to the node.js URL for downloading the picture. As a list there are the following containers:
+1. Se instaleaza Docker si Docker Compose.
 
-Front-end (JS, Angular, Vue.js) -> load pic&params(Zoom In/Out, +/- %) via REST API
--> C01: Java Javalin/Apache Tomcat 10 Microserv + JMS Client Publisher
--> C02: Apache TomEE 10 w JMS Broker - Topic & Queues
--> C03: Apache TomEE 10 w EJB Client MDB & RMI Client <- zoom pics united into DB via REST API & JMS Client Publisher in Topic/Queue that the job is done
--> C04, C05: Apache TomEE 10 w RMI Server objects
-<- C01: Notification that the pic is ready => in the front-end with link for download from node.js C06
--> C06: REST API in node.js w MongoDB with 2 REST API endpoints interfaces: 1 for DB access and 1 for Web Access
+2. Se cloneaza repository-ul:
 
-"
+   git clone git@github.com:lucrari-ase-valentin-gonganau/DADC---seminar--practica.git .
 
-Upload and packiging: "The ZIP file has the source code files + _.sh/_.bat file for compiling and running the samples. The ZIP filename rule will have DAD2023_A01_SURNAME_FirstName1_FirstName2.zip". The upload is available through online.ase.ro
+3. Se ruleaza comanda:
+
+   docker-compose up
+
+4. Dupa ce serviciile sunt pornite, se deschide browser http://localhost:3000

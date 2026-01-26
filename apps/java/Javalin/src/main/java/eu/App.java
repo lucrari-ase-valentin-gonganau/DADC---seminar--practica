@@ -27,6 +27,7 @@ public class App {
 	static final String BROKER_PASSWORD_DEFAULT = "admin";
 	
 
+
 	public static void main(String[] args) {
 		try {
 			App.configureBroker();
@@ -114,24 +115,27 @@ public class App {
 		}
 		
 		try {
-		int x = Integer.parseInt(ctx.formParam("x"));
-		int y = Integer.parseInt(ctx.formParam("y"));
-		int width = Integer.parseInt(ctx.formParam("width"));
-		int height = Integer.parseInt(ctx.formParam("height"));
-
-		App.sendToBroker(tempFile, x, y, width, height, uploadId);
-
-		
-		ctx.result(uploadId);
+			double zoom = Double.parseDouble(ctx.formParam("zoom"));
+			
+			
+			if (zoom < 0.1 || zoom > 10) {
+				throw new Exception("Zoom must be between 0.1 and 10");
+			}
+			
+			App.sendToBroker(tempFile, zoom, uploadId);
+			
+			ctx.result(uploadId);
 		
 		} catch (NumberFormatException e) {
-			ctx.status(400).result("x, y, width and height are mandatory and must be numeric");	
+			ctx.status(400).result("zoom are mandatory and must be numeric");	
+		} catch (Exception e) {
+			ctx.status(400).result("zoom must be between 0.1 and 10");
 		}
 		
 	}
 	
 	
-	protected static void sendToBroker(Path tempFile, int x, int y, int w, int h, String uploadId) {
+	protected static void sendToBroker(Path tempFile, double zoom, String uploadId) {
 		try { 
 			Session session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
@@ -148,10 +152,7 @@ public class App {
 				message.writeBytes(buffer, 0, read);
 			}
 			
-			message.setIntProperty("x", x);
-			message.setIntProperty("y", y);
-			message.setIntProperty("w", w);
-			message.setIntProperty("h", h);
+			message.setDoubleProperty("zoom", zoom);
 			
 			message.setStringProperty("uploadId", uploadId); // for tracking
 			
@@ -160,7 +161,7 @@ public class App {
 			
 			System.out.println("Message ID: " + message.getJMSMessageID());
 	        System.out.println("Message sent successfully to queue: image.queue");
-	        System.out.println("Coordinates: (" + x + "," + y + ") -> (" + w + "," + h + ")");
+	        System.out.println("Zoom: (" + zoom + ")");
 	        System.out.println("File: " + tempFile);
 			
 			fis.close();
@@ -171,6 +172,12 @@ public class App {
 		} catch (JMSException e) {
 			System.err.println("Failed to send message to broker!");
 			e.printStackTrace();
+			
+			
+			
+			
+			// 
+			
 		} catch (FileNotFoundException e) {
 
 			e.printStackTrace();

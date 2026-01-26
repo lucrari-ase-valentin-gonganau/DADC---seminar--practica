@@ -35,7 +35,7 @@ const Processing = () => {
         <div className="card-body p-4">
           {uploadIdParam && (
             <div className="alert alert-info" role="alert">
-              <i className="bi bi-info-circle me-2"></i>UploadId:{" "}
+              <i className="bi bi-info-circle me-2"></i>Upload Id:{" "}
               {uploadIdParam}
             </div>
           )}
