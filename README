@@ -4,10 +4,10 @@ Cum functioneaza?
 
 2. Se cloneaza repository-ul:
 
-   git clone git@github.com:lucrari-ase-valentin-gonganau/DADC---seminar--practica.git .
+   git clone git@github.com:lucrari-ase-valentin-gonganau/DADC---seminar--practica.git proiect
 
-3. Se ruleaza comanda:
-
+3. Se ruleaza comenzile:
+   cd proiect
    docker-compose up
 
 4. Dupa ce serviciile sunt pornite, se deschide browser http://localhost:3000
