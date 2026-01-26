@@ -8,6 +8,6 @@ Cum functioneaza?
 
 3. Se ruleaza comenzile:
    cd proiect
-   docker-compose up
+   docker-compose up / docker compose up
 
 4. Dupa ce serviciile sunt pornite, se deschide browser http://localhost:3000

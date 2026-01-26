@@ -19,8 +19,10 @@ RUN apt-get update && \
 
 USER stud
 # Build with Maven to get dependencies
-RUN mvn dependency:copy-dependencies && \
-    mvn compile
+RUN mvn clean compile dependency:copy-dependencies && \ 
+    ls -la target/ && \
+    ls -la target/classes/ && \
+    find target/classes -name "*.class" || true
 
 USER root
 RUN apt-get update && \
@@ -31,11 +33,11 @@ RUN apt-get update && \
     echo "load 12 10 5" >> /etc/snmp/snmpd.conf
 
 # Create startup script
-RUN echo '#!/bin/bash\nservice snmpd start\nexport JAVA_HOME=/opt/software/java/jdks/jdk-25.0.1\nexport TOMEE_HOME=/opt/software/apache-tomee-plume-10.0.0-M3\nexport PATH=$JAVA_HOME/bin:$TOMEE_HOME/bin:$PATH\nsu stud -c "cd /home/stud/app && /opt/software/java/jdks/jdk-25.0.1/bin/java -cp ejbModule:target/classes:target/dependency/*:/opt/software/apache-tomee-plume-10.0.0-M3/lib/* eu.proiect.Consumer"' > /start.sh && \
+RUN echo '#!/bin/bash\nservice snmpd start\nexport JAVA_HOME=/opt/software/java/jdks/jdk-25.0.1\nexport TOMEE_HOME=/opt/software/apache-tomee-plume-10.0.0-M3\nexport PATH=$JAVA_HOME/bin:$TOMEE_HOME/bin:$PATH\nsu stud -c "cd /home/stud/app && /opt/software/java/jdks/jdk-25.0.1/bin/java -cp target/classes:target/dependency/*:/opt/software/apache-tomee-plume-10.0.0-M3/lib/* eu.proiect.Consumer"' > /start.sh && \
     chmod +x /start.sh
 
 # Expose TomEE port
 EXPOSE 161/udp
 
-# Start TomEE
+# Start TomEEE
 CMD ["/bin/bash", "-c", "/start.sh"]
