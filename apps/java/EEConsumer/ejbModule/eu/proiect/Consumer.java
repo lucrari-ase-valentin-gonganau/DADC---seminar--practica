@@ -78,7 +78,7 @@ public static void main(String[] args) {
 		topicSubscriber.setMessageListener((MessageListener) topicListener);
 		topicConnection.start();
 			
-		System.out.println("Consumer RMI - Started - BIG BOSS");
+		System.out.println("Consumer RMI - Started");
 		Thread.currentThread().join();
 		
 		
